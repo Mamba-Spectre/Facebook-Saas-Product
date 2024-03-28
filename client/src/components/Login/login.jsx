@@ -36,7 +36,7 @@ const AuthForm = () => {
         password
       };
   
-      const response = await axios.post("https://facebook-saas-product-production.up.railway.app/auth/login", authData);
+      const response = await axios.post("http://localhost:8080/auth/login", authData);
       if (response?.data?.facebookAuthTokens) {
         Cookies.set("COMMON-AUTH", response?.data?.authentication?.sessionToken);
         router.push('/dashboard');
