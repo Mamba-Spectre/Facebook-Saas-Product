@@ -10,7 +10,7 @@ import mongoose from 'mongoose';
 
 dotenv.config();
 const app = express();
-app.use(cors({credentials: true}));
+app.use(cors({credentials: true, origin: true}));
 app.use(bodyParser.json());
 app.use(session({ secret: "abcde12345", resave: false, saveUninitialized: true}));
 app.use(compression());

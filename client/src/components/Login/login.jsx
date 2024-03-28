@@ -13,6 +13,7 @@ const AuthForm = () => {
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState("");
+  const [userId,setUserId] = useState("");
   const router = useRouter();
   const handleLoginSuccess = (sessionToken) => {
     Cookies.set("COMMON-AUTH", sessionToken);
@@ -35,12 +36,12 @@ const AuthForm = () => {
         email,
         password
       };
-  
-      const response = await axios.post("http://localhost:8080/auth/login", authData);
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, authData);
       if (response?.data?.facebookAuthTokens) {
         Cookies.set("COMMON-AUTH", response?.data?.authentication?.sessionToken);
         router.push('/dashboard');
       } else {
+        setUserId(response?.data?._id);
         handleLoginSuccess(response.data.authentication.sessionToken);
       }
       console.log("response:", response.data);
@@ -83,9 +84,7 @@ const AuthForm = () => {
       {isModalOpen && (
         <Modal
           closeModal={() => {setIsModalOpen(false), setError("")}}
-          handleSubmit={() => {
-            console.log("submit");
-          }}
+          id={userId}
         />
       )}
     </div>

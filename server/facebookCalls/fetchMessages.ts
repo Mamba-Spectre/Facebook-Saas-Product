@@ -28,6 +28,8 @@ export const allConversations = async (req: any, res: any) => {
         fields: "name",
       },
     });
+    console.log("here");
+    
     
     const response = await axios.get(
       `https://graph.facebook.com/v19.0/me/conversations`,
@@ -77,6 +79,8 @@ export const allConversations = async (req: any, res: any) => {
       .status(200)
       .json({ allConversationsFromDB: filteredConversations });
   } catch (error) {
+    console.log("Error fetching conversations:", error);
+    
     return res.status(400).json({ message: "Error fetching conversations" });
   }
 };

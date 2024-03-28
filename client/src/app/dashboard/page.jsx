@@ -36,7 +36,7 @@ const Page = () => {
   const sendMessage = async (message) => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/reply",
+        `http://localhost:8080/reply`,
         {
           recieverId: recieverID,
           message: message,
@@ -77,14 +77,14 @@ const Page = () => {
   const fetchConversations = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("http://localhost:8080/conversations", {
+      const response = await axios.get(`http://localhost:8080/conversations`, {
         withCredentials: true,
       });
       setConvo(response.data.allConversationsFromDB);
       setOwner(response?.data?.allConversationsFromDB[0]?.pageName);
       setLoading(false);
     } catch (error) {
-      if (error.response.status === 403) {
+      if (error?.response?.status === 403) {
         router.push("/");
       }
       setLoading(false);

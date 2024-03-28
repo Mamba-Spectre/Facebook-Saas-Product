@@ -7,40 +7,42 @@ import Cookies from "js-cookie";
 import {useRouter} from 'next/navigation'
 import FacebookLogin from "@greatsumini/react-facebook-login";
 
-const Modal = ({ closeModal, handleSubmit }) => {
+const Modal = ({ closeModal, id }) => {
   const [accessToken, setAccessToken] = useState(null);
+  const [userId, setUserId] = useState("");
   const sessionToken = Cookies.get("COMMON-AUTH");
   const router = useRouter()
   const authTokenSuccess = (response) => { 
-    console.log("Login Success!", response);
     setAccessToken(response.accessToken);
-    updateUserWithAccessToken(response.accessToken);
+    setUserId(response?.userID);
+    // updateUserWithAccessToken(response.accessToken);
   };
-
-  const updateUserWithAccessToken = async (accessToken) => {
+  const updateUserWithAccessToken = async () => {
     try {
-      const pageToken = await axios.get(`https://graph.facebook.com/3690963331186478/accounts?access_token=${accessToken}`)
+      console.log("User ID", userId)
+      const pageToken = await axios.get(`https://graph.facebook.com/${userId}/accounts?access_token=${accessToken}`)
       const pageAccessToken = pageToken.data.data[0].access_token
       console.log("Page Token", pageToken.data.data[0].access_token)
       const response = await axios.post(
-        `http://localhost:8080/users/6601d13bd004eb8037b40ed6`,
-        { accessToken:pageAccessToken,id:"6601d13bd004eb8037b40ed6" },
+        `http://localhost:8080/users/${id}`,
+        { accessToken:pageAccessToken,id:id },
         {
           withCredentials: true
         }
       );
+      console.log("here");
       router.push('/dashboard')
-      console.log("User updated successfully:", response.data);
-      // Optionally, you can show a success message or perform other actions here
     } catch (error) {
       console.error("Error updating user:", error);
       toast.error("Error updating user", { autoClose: 2000 });
     }
   };
 
-  // useEffect(() => {
-  //   fetchMovies();
-  // }, []);
+  useEffect(() => {
+    if (userId && accessToken) {
+      updateUserWithAccessToken();
+    }
+  }, [userId]);
 
   return (
     <div className={modalStyles.modalOverlay}>
@@ -53,14 +55,16 @@ const Modal = ({ closeModal, handleSubmit }) => {
         <div className={modalStyles.facebookLoginWrapper}>
           <FacebookLogin
             appId="865125058698046"
+            onProfileSuccess={(response) => {
+              setUserId(response.id);
+              console.log("Get Profile Success!", response);
+            }}
             onSuccess={(response) => {
+              // console.log("Login Success!", response.id);
               authTokenSuccess(response);
             }}
             onFail={(error) => {
               console.log("Login Failed!", error);
-            }}
-            onProfileSuccess={(response) => {
-              console.log("Get Profile Success!", response);
             }}
             scope="read_page_mailboxes,pages_messaging"
           />

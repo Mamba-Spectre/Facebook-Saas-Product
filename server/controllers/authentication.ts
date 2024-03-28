@@ -61,7 +61,7 @@ export const logout = async (req: express.Request, res: express.Response) => {
     }
     user.facebookAuthTokens = undefined;
     await user.save();
-    res.clearCookie('COMMON-AUTH');
+    // res.clearCookie('COMMON-AUTH');
 
     return res.status(200).json({ message: 'Logged out' }).end();
   } catch (error) {

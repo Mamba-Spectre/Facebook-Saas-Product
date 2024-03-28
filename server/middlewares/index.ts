@@ -31,7 +31,7 @@ export const isAuthenticated = async (req: express.Request, res: express.Respons
 export const isOwner = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   try {
     const { id } = req.params;
-    const currentUserId = get(req, 'identity._id') as string;
+    const currentUserId = get(req, 'identity._id') as unknown as string;
 
     if (!currentUserId) {
       return res.status(400).json({ message: 'No user found' });
