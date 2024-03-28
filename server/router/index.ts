@@ -2,7 +2,6 @@ import express from 'express';
 
 import authentication from './authentication';
 import users from './users';
-import wwebhooks from './wwebhooks';
 import facebookCalls from './facebookCalls';
 
 const router = express.Router();

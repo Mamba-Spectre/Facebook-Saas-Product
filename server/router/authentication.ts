@@ -13,4 +13,4 @@ router.post('/register', register);
 router.post('/login', login);
 router.post('/facebook',facebookUserCheck);
 router.get('/logout',logout)
-export default router;
+export default router; 
