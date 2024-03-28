@@ -1,0 +1,148 @@
+/* styles.css */
+
+.root {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #202124; /* Dark background color */
+}
+
+.auth-form {
+  max-width: 400px;
+  width: 100%;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #2d2d2d; /* Darker login box background color */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  animation: slide-in 0.5s ease forwards;
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.auth-form h2 {
+  text-align: center;
+  color: #fff; /* Text color in dark mode */
+  margin-bottom: 20px;
+}
+
+.auth-form label {
+  display: block;
+  margin-bottom: 8px;
+  color: #ddd; /* Label color in dark mode */
+}
+
+.auth-form input[type="email"],
+.auth-form input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #444; /* Border color in dark mode */
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: #444; /* Input background color in dark mode */
+  color: #fff; /* Text color in dark mode */
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.auth-form input[type="email"]:hover,
+.auth-form input[type="password"]:hover {
+  border-color: #007bff; /* Hover border color in dark mode */
+}
+
+.auth-form input[type="email"]:focus,
+.auth-form input[type="password"]:focus {
+  border-color: #007bff; /* Focus border color in dark mode */
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25); /* Focus effect in dark mode */
+}
+
+.auth-form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  background-image: linear-gradient(to bottom, #007bff, #0056b3);
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.auth-form button:hover {
+  background-color: #0056b3;
+}
+
+.auth-form .switch-form {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+.auth-form .switch-form label {
+  cursor: pointer;
+  color: #007bff;
+  transition: color 0.3s ease;
+}
+
+.auth-form .switch-form label:hover {
+  color: #0056b3;
+}
+.loader {
+  width: 48px;
+  height: 48px;
+  display: block;
+  margin: 15px auto;
+  position: relative;
+  color: #ccc;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+.loader::after,
+.loader::before {
+  content: '';  
+  box-sizing: border-box;
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  top: 50%;
+  left: 50%;
+  transform: scale(0.5) translate(0, 0);
+  background-color: #ccc;
+  border-radius: 50%;
+  animation: animloader 1s infinite ease-in-out;
+}
+.loader::before {
+  background-color: #c75050;
+  transform: scale(0.5) translate(-48px, -48px);
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} 
+@keyframes animloader {
+  50% {
+    transform: scale(1) translate(-50%, -50%);
+  }
+}
+.error{
+  color: red;
+  font-size: 14px;
+  margin-bottom: 5px;
+
+}

@@ -1,0 +1,304 @@
+.root {
+  /* background-color: rgb(255, 255, 255); */
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: #202124;
+}
+
+.icons {
+  width: 32px;
+  /* z-index: 11; */
+  /* margin-bottom: 4px; */
+  cursor: pointer;
+  padding: 4px;
+  /* color: antiquewhite; */
+  /* background-color: #DCF8C6; */
+}
+
+.iconPanel {
+  display: flex;
+  width: 60px;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  /* background-color: #4671fd; */
+}
+.logo {
+  padding: 12px;
+}
+.user {
+  position: fixed;
+  left: 0;
+  margin-left: 12px;
+  margin-bottom: 12px;
+  bottom: 0;
+  width: 32px;
+}
+.options {
+  position: absolute;
+  top: -100px;
+  left: 30px;
+  /* top: calc(100% + 8px); */
+  /* right: 0; */
+  background-color: #36373b;
+  /* border: 1px solid #ccc; */
+  border-radius: 4px;
+  box-shadow: 2px 4px 8px rgba(255, 255, 255, 0.1);
+  padding: 8px;
+  z-index: 1;
+  width: 200px;
+}
+
+.options button {
+  /* color: #202124; */
+  display: block;
+  width: 100%;
+  padding: 8px;
+  text-align: left;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.options button:hover {
+  border-radius: 4px;
+  background-color: #555555;
+}
+.userName {
+  /* color: #000000; */
+  font-size: 14px;
+  font-weight: bold;
+}
+.convo:hover {
+  background-color: #3b3b3b;
+  cursor: pointer;
+}
+.nameTime {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 160px;
+  /* gap: 78px; */
+}
+.conversations {
+  display: flex;
+  padding: 10px;
+  /* align-items: center; */
+  /* gap: 12px; */
+}
+
+.conversations h3 {
+  /* color: #000000; */
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: #3b3b3b;
+}
+
+.peopleList {
+  display: flex;
+  flex-direction: column;
+}
+.people {
+  border-left: 1px solid #3b3b3b;
+  width: 300px;
+  /* margin-left: 8px; */
+}
+
+.personInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.person {
+  padding: 8px;
+  /* display: flex; */
+  gap: 10px;
+}
+.activeConvo {
+  /* background-color: rgb(230, 228, 228); */
+  padding: 8px;
+  background-color: #3b3b3b;
+}
+
+.messenger {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  /* overflow-y: scroll; */
+  /* background-color: white; */
+  border-left: 1px solid #3b3b3b;
+  width: 100%;
+}
+.tabs {
+  width: 100%;
+  text-align: center;
+  padding: 28px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.tabs > div.active {
+  border: 2px solid white; /* Highlight active tab with a white bottom border */
+  border-radius: 12px;
+}
+.messenger h3,
+.messenger p {
+  /* color: #000000; */
+}
+
+.smallIcons {
+  width: 18px;
+}
+.active {
+  box-shadow: inset 0 0 10px #ffffff;
+  /* background-color: white; */
+  /* z-index: -1; */
+  color: blanchedalmond;
+}
+input {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.2); /* Add a subtle border */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+  margin: 8px;
+  height: 40px; /* Dark text color */
+  /* background-color: #f4f4f4; Light background color */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Add transition effects */
+  /* bottom: 10px; */
+  /* position: fixed; */
+  width: calc(100% - 32px);
+}
+
+input:focus {
+  border-color: #007bff; /* Change border color on focus */
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.6); /* Add stronger shadow effect on focus */
+}
+
+input::placeholder {
+  color: #999; /* Placeholder text color */
+}
+
+.conversationContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.messageContainer {
+  max-width: 70%;
+  min-width: 200px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.sentMessage {
+  align-self: flex-end;
+  background-color: #dcf8c6;
+  /* position: relative; */
+}
+
+.receivedMessage {
+  align-self: flex-start;
+  background-color: #eaeaea;
+}
+
+.messageText {
+  font-size: 16px;
+  /* color: #000000; */
+  color: black;
+}
+
+.messageDetails {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  color: #666;
+}
+
+.sender {
+  font-weight: bold;
+}
+
+.timestamp {
+  font-size: 12px;
+  color: #666;
+  display: flex;
+  align-items: flex-end;
+  justify-content: right;
+}
+
+.nonHighlightedText {
+  /* background-color: white; */
+  color: #666;
+  font-size: 14px;
+}
+.messagesContianer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  overflow-y: scroll;
+  height: 100%;
+  margin-bottom: 50px;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  display: block;
+  margin: 15px auto;
+  position: relative;
+  color: #ccc;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+.loader::after,
+.loader::before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  top: 50%;
+  left: 50%;
+  transform: scale(0.5) translate(0, 0);
+  background-color: #ccc;
+  border-radius: 50%;
+  animation: animloader 1s infinite ease-in-out;
+}
+.loader::before {
+  background-color: #c75050;
+  transform: scale(0.5) translate(-48px, -48px);
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes animloader {
+  50% {
+    transform: scale(1) translate(-50%, -50%);
+  }
+}
+.noConversationText {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 18px;
+  color: #666;
+}
