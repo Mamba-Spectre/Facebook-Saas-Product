@@ -4,12 +4,14 @@ import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import cors from 'cors';
 import session from 'express-session';
-
+import dotenv from 'dotenv';
 import router from './router';
 import mongoose from 'mongoose';
+
+dotenv.config();
 const app = express();
+app.use(cors({credentials: true}));
 app.use(session({ secret: "abcde12345", resave: false, saveUninitialized: true}));
-app.use(cors({credentials: true, origin: true}));
 app.use(compression());
 app.use(cookieParser());
 app.use(bodyParser.json());

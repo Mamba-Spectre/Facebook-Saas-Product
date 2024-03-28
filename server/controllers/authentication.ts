@@ -2,7 +2,7 @@ import express from 'express';
 import { getUserByEmail, createUser, getUserById, findFacebookId, UserModel } from '../db/users';
 import { authentication, random } from '../helpers';
 
-let user = "";
+let user:any = "";
 const getUserBySessionToken = async (sessionToken: string) => {
   try {
     user = await UserModel.findOne({ 'authentication.sessionToken': sessionToken });
@@ -21,7 +21,7 @@ export const login = async (req: express.Request, res: express.Response) => {
       return res.status(400).json({ message: 'Invalid email or password' }).end();
     }
 
-    const user = await getUserByEmail(email).select('+authentication.salt +authentication.password');
+    const user:any = await getUserByEmail(email).select('+authentication.salt +authentication.password');
 
     if (!user) {
       return res.status(400).json({ message: 'User not found' }).end();
