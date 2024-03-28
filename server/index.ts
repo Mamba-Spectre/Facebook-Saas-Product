@@ -11,10 +11,10 @@ import mongoose from 'mongoose';
 dotenv.config();
 const app = express();
 app.use(cors({credentials: true}));
+app.use(bodyParser.json());
 app.use(session({ secret: "abcde12345", resave: false, saveUninitialized: true}));
 app.use(compression());
 app.use(cookieParser());
-app.use(bodyParser.json());
 app.use('/', router);
 
 const port = process.env.PORT || 8080;

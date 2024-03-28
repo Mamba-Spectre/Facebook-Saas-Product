@@ -36,7 +36,7 @@ export const updateUser = async (req: express.Request, res: express.Response) =>
       return res.status(400).json({ message: 'Missing Access Token fields' });
     }
 
-    const user = await getUserById(id);
+    const user:any = await getUserById(id);
     
     user.facebookAuthTokens = accessToken;
     await user.save();
