@@ -7,7 +7,8 @@ export const isAuthenticated = async (req: express.Request, res: express.Respons
   try {
     console.log(req.cookies);
     
-    const sessionToken = req.cookies['COMMON-AUTH'];
+    // const sessionToken = req.cookies['COMMON-AUTH'];
+    const sessionToken:any = req.headers['COMMON-AUTH'];
 
     if (!sessionToken) {
       return res.status(403).json({ message: 'No session token' });

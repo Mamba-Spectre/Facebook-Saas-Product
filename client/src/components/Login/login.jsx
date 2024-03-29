@@ -5,7 +5,7 @@ import axios from "axios";
 import Modal from "../Modal";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
-
+import cookieClient from 'react-cookie'
 const AuthForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,8 +16,9 @@ const AuthForm = () => {
   const [userId,setUserId] = useState("");
   const router = useRouter();
   const handleLoginSuccess = (sessionToken) => {
-    Cookies.set("COMMON-AUTH", sessionToken);
-    localStorage.setItem("sessionToken", sessionToken);
+    // cookieClient.save('COMMON-AUTH', sessionToken, {path:'/'})
+    Cookies.set("COMMON-AUTH", sessionToken, {path:'/'});
+    localStorage.setItem("COMMON-AUTH", sessionToken);
     setIsModalOpen(true);
   };
   
@@ -38,7 +39,10 @@ const AuthForm = () => {
       };
       const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, authData);
       if (response?.data?.facebookAuthTokens) {
-        Cookies.set("COMMON-AUTH", response?.data?.authentication?.sessionToken);
+        // document.cookie = "COMMON-AUTH=" + encodeURIComponent(sessionToken) + "; path=/";
+        // cokkieClient.save('COMMON-AUTH', response?.data?.facebookAuthTokens?.sessionToken, {path:'/'})
+        Cookies.set("COMMON-AUTH", response?.data?.authentication?.sessionToken, {path:'/'});
+        localStorage.setItem("COMMON-AUTH", response?.data?.authentication?.sessionToken);
         router.push('/dashboard');
       } else {
         setUserId(response?.data?._id);

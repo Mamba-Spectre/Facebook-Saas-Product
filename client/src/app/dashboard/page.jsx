@@ -74,12 +74,16 @@ const Page = () => {
       setMessageLoading(false);
     }
   };
+
   const fetchConversations = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/facebook/conversations`, {
+      const authToken = localStorage.getItem('COMMON-AUTH');
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/facebook/conversations`, 
+      
+      {
         headers: {
-          "Content-Type": "application/json",
+          "COMMON-AUTH": `${authToken}`,
         },
         withCredentials: true,
       });
