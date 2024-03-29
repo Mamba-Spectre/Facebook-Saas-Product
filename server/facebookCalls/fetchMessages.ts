@@ -19,6 +19,8 @@ export const allConversations = async (req: any, res: any) => {
   try {
     // const sessionToken = req.cookies['COMMON-AUTH'];
     const sessionToken:any = req.headers['COMMON-AUTH'];
+    console.log("i ma herer");
+    
     console.log("sessionToken", sessionToken);
 
     await getUserBySessionToken(sessionToken);
