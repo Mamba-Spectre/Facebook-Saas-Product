@@ -77,7 +77,7 @@ const Page = () => {
   const fetchConversations = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`http://localhost:8080/conversations`, {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/facebook/conversations`, {
         withCredentials: true,
       });
       setConvo(response.data.allConversationsFromDB);

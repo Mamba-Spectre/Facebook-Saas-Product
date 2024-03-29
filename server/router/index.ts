@@ -16,6 +16,6 @@ const router = express.Router();
 // };
 
 router.use('/auth', authentication);
-router.use('/', facebookCalls);
+router.use('/facebook', facebookCalls);
 router.use('/users', users);
 export default router;
