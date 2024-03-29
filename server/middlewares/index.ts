@@ -5,10 +5,12 @@ import { getUserBySessionToken } from '../db/users';
 
 export const isAuthenticated = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   try {
-    console.log(req.cookies);
+    console.log("i ma herer");
     
     // const sessionToken = req.cookies['COMMON-AUTH'];
     const sessionToken:any = req.headers['COMMON-AUTH'];
+    console.log("sessionToken", sessionToken);
+    
 
     if (!sessionToken) {
       return res.status(403).json({ message: 'No session token' });
