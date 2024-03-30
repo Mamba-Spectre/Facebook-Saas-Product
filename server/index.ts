@@ -10,10 +10,11 @@ import mongoose from 'mongoose';
 
 dotenv.config();
 const app = express();
+const secret:any = process.env.SESSION_SECRET
 app.use(cors({credentials: true, origin: true}));
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(session({ secret: "abcde12345", resave: false, saveUninitialized: true}));
+app.use(session({ secret: secret, resave: false, saveUninitialized: true}));
 app.use(compression());
 app.use('/', router);
 
@@ -21,10 +22,10 @@ const port = process.env.PORT || 8080;
 app.listen(port, () => {
     console.log('Server is running on port 8080');
 });
-const MONGO_URL = 'mongodb+srv://harshvardhan23007:3gtQgfiUUd1z0fiQ@cluster0.xgklla1.mongodb.net/?retryWrites=true&w=majority'; // DB URI
+const MONGO_URI:any = process.env.MONGO_URI;
 
 mongoose.Promise = Promise;
-mongoose.connect(MONGO_URL);
+mongoose.connect(MONGO_URI);
 mongoose.connection.on('error', (error: Error) => console.log(error));
 mongoose.connection.on('connected', () => {
   console.log('MongoDB connected');

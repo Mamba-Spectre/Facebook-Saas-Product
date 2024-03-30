@@ -38,11 +38,6 @@ export const login = async (req: express.Request, res: express.Response) => {
 
     await user.save();
 
-    // if(user.facebookAuthTokens){
-    //   res.cookie('COMMON-AUTH', user.authentication.sessionToken, { domain: 'localhost', path: '/' });
-    //   return res.status(201).json(user).end();
-    // }
-
     res.cookie('common-auth', user.authentication.sessionToken,{ httpOnly: true, secure: true, sameSite: 'none' });
 
 
@@ -54,7 +49,6 @@ export const login = async (req: express.Request, res: express.Response) => {
 
 export const logout = async (req: any, res: express.Response) => {
   try {
-    console.log("dsfgfdsghfdsghhfds",req.headers['common-auth']);
     
     const sessionToken:any = req.headers['common-auth'];
     const user:any = await getUserBySessionToken(sessionToken);
@@ -106,7 +100,6 @@ export const register = async (req: express.Request, res: express.Response) => {
 export const facebookUserCheck = async (req: express.Request, res: express.Response) => {
   try {
     const  {userID}  = req?.body?.data?.data;
-    console.log(req?.body?.data?.data);
     
 
     if (!userID) {
@@ -135,40 +128,3 @@ export const facebookUserCheck = async (req: express.Request, res: express.Respo
   }
 
 }
-
-// passport.serializeUser(function(user:any, done) {
-//   done(null, user.id);
-// });
-//
-// passport.use(new FacebookStrategy({
-//     clientID: '1678353742691744',
-//     clientSecret: 'f7f34e9d4c691a32656ce1ac1ebaf400',
-//     callbackURL: 'http://localhost:8080/auth/facebook/callback',
-// },
-// async function (accessToken:string, refreshToken:string, profile:any, cb:any) {
-  
-//   console.log('here1',profile);
-//   // const user = await getUserByEmail(profile.emails[0].value);
-//   const user = getUserById(profile.id);
-//   console.log('here');
-//   if (!user) {
-    
-//         const newUser = await createUser({
-//             // email: profile.emails[0].value,
-//             username: profile.displayName,
-//             facebookId: profile.id
-//         });
-//         return cb(null, newUser);
-//     }else{
-//       console.log('here2');
-//       return cb(null, user);
-      
-//     }
-// }))
-
-// export const facebookAuthController = passport.authenticate('facebook', { scope: ['email'] });
-
-// export const facebookAuthCallbackController = passport.authenticate('facebook', {  
-//     successRedirect: '/',
-//     failureRedirect: '/login'
-// });

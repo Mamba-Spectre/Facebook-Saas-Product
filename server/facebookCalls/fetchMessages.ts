@@ -18,8 +18,6 @@ const getUserBySessionToken = async (sessionToken: string) => {
 export const allConversations = async (req: any, res: any) => {
   try {
     const sessionToken:any = req.headers['common-auth'];
-    
-    console.log("sessionToken", sessionToken);
 
     await getUserBySessionToken(sessionToken);
     
@@ -29,7 +27,6 @@ export const allConversations = async (req: any, res: any) => {
         fields: "name",
       },
     });
-    console.log("here");
     
     
     const response = await axios.get(
