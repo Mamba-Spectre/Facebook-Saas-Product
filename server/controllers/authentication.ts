@@ -54,7 +54,7 @@ export const login = async (req: express.Request, res: express.Response) => {
 
 export const logout = async (req: express.Request, res: express.Response) => {
   try {
-    const sessionToken = req.header['common-auth'];
+    const sessionToken:any = req.header['common-auth'];
     const user:any = await getUserBySessionToken(sessionToken);
 
     if (!user) {
