@@ -52,6 +52,16 @@ const Page = () => {
         fetchMessages();
       }
     } catch (error) {
+      toast.error("Error sending message", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
       console.error("Error sending message:", error);
     }
   };
@@ -81,6 +91,16 @@ const Page = () => {
       setMessageLoading(false);
     } catch (error) {
       setMessageLoading(false);
+      toast.error("Error fetching messages", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      })
     }
   };
 
