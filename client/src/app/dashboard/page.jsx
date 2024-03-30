@@ -106,13 +106,15 @@ const Page = () => {
   };
   const logoutWithDisconnect = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/auth/logout", {
+      const authToken = localStorage.getItem('common-auth');
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
         headers: {
-          "common-auth": Cookies.get("common-auth"),
+          "common-auth": authToken,
         },
         withCredentials: true,
       });
       if (response) {
+        localStorage.removeItem("common-auth");
         Cookies.remove("common-auth");
         router.push("/");
       }

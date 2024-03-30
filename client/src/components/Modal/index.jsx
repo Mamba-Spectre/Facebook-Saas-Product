@@ -10,8 +10,8 @@ import FacebookLogin from "@greatsumini/react-facebook-login";
 const Modal = ({ closeModal, id }) => {
   const [accessToken, setAccessToken] = useState(null);
   const [userId, setUserId] = useState("");
-  const sessionToken = Cookies.get("COMMON-AUTH");
   const router = useRouter()
+  const authToken = localStorage.getItem('common-auth');
   const authTokenSuccess = (response) => { 
     setAccessToken(response.accessToken);
     setUserId(response?.userID);
@@ -27,6 +27,9 @@ const Modal = ({ closeModal, id }) => {
         `${process.env.NEXT_PUBLIC_API_URL}/users/${id}`,
         { accessToken:pageAccessToken,id:id },
         {
+          headers: {
+            'common-auth': authToken,
+          },
           withCredentials: true
         }
       );

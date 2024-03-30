@@ -18,7 +18,9 @@ const AuthForm = () => {
   const handleLoginSuccess = (sessionToken) => {
     // cookieClient.save('common-auth', sessionToken, {path:'/'})
     Cookies.set("common-auth", sessionToken, {path:'/'});
-    localStorage.setItem("common-auth", sessionToken);
+    if(localStorage.getItem("common-auth") === null){
+      localStorage.setItem("common-auth", sessionToken);
+    }
     setIsModalOpen(true);
   };
   // useEffect(() => {
