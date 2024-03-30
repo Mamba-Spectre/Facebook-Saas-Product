@@ -21,11 +21,11 @@ const AuthForm = () => {
     localStorage.setItem("common-auth", sessionToken);
     setIsModalOpen(true);
   };
-  useEffect(() => {
-    setInterval(() => {
-      debugger
-    }, 1000);
-  },[])
+  // useEffect(() => {
+  //   setInterval(() => {
+  //     debugger
+  //   }, 1000);
+  // },[])
   
   const handleEmailChange = (e) => {
     setEmail(e.target.value);

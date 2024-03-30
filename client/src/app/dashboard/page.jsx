@@ -36,7 +36,7 @@ const Page = () => {
   const sendMessage = async (message) => {
     try {
       const response = await axios.post(
-        `http://localhost:8080/reply`,
+        `${process.env.NEXT_PUBLIC_API_URL}/facebook/reply`,
         {
           recieverId: recieverID,
           message: message,
@@ -56,7 +56,7 @@ const Page = () => {
   const fetchMessages = async () => {
     try {
       setMessageLoading(true);
-      const response = await axios.get(`http://localhost:8080/messages`, {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/facebook/messages`, {
         params: {
           conversationId: convoId,
         },
@@ -87,20 +87,13 @@ const Page = () => {
           },
         withCredentials: true,
       });
-      // const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/facebook/conversations`,{
-      //   meathod: 'GET',
-      //   credentials: 'include',
-      // })
-      // const data = res.json();
-      // const response = res.json();
-      // console.log("??????????????????",response);
       setConvo(response.data.allConversationsFromDB);
       setOwner(response?.data?.allConversationsFromDB[0]?.pageName);
       setLoading(false);
     } catch (error) {
-      // if (error?.response?.status === 403) {
-      //   router.push("/");
-      // }
+      if (error?.response?.status === 403) {
+        router.push("/");
+      }
       setLoading(false);
       console.error("Error fetching conversations:", error);
     }
