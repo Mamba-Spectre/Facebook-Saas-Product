@@ -10,7 +10,7 @@ export const isAuthenticated = async (req: express.Request, res: express.Respons
     
     
     // const sessionToken = req.cookies['COMMON-AUTH'];
-    const sessionToken:any = req.headers['COMMON-AUTH'];
+    const sessionToken:any = req.headers['common-auth'];
     console.log("sessionToken", sessionToken);
     
 

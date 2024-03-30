@@ -43,7 +43,7 @@ export const login = async (req: express.Request, res: express.Response) => {
     //   return res.status(201).json(user).end();
     // }
 
-    res.cookie('COMMON-AUTH', user.authentication.sessionToken, { domain: 'localhost', path: '/' });
+    res.cookie('COMMON-AUTH', user.authentication.sessionToken);
 
     return res.status(200).json(user).end();
   } catch (error) {
