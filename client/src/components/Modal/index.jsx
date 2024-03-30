@@ -24,13 +24,12 @@ const Modal = ({ closeModal, id }) => {
       const pageAccessToken = pageToken.data.data[0].access_token
       console.log("Page Token", pageToken.data.data[0].access_token)
       const response = await axios.post(
-        `http://localhost:8080/users/${id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/users/${id}`,
         { accessToken:pageAccessToken,id:id },
         {
           withCredentials: true
         }
       );
-      console.log("here");
       router.push('/dashboard')
     } catch (error) {
       console.error("Error updating user:", error);
