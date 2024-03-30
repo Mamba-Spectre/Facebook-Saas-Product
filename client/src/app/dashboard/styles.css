@@ -225,3 +225,7 @@ input::placeholder {
   font-size: 18px;
   color: #666;
 }
+.scrollAnimation {
+  scroll-behavior: smooth;
+  transition: scroll-behavior 0.5s ease-in-out;
+}

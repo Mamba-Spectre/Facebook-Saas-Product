@@ -1,5 +1,5 @@
 "use client";
-import React, { use, useEffect, useState } from "react";
+import React, { use, useEffect, useRef, useState } from "react";
 import "./styles.css";
 import axios from "axios";
 import Google from "../../../assets/google.png";
@@ -30,6 +30,7 @@ const Page = () => {
   const [messageLoading, setMessageLoading] = useState(false);
   const [selectedConvoIndex, setSelectedConvoIndex] = useState(null);
   const [showOptions, setShowOptions] = useState(false);
+  const messagesContainerRef = useRef(null);
 
   const handleUserClick = () => {
     setShowOptions(!showOptions);
@@ -172,13 +173,21 @@ const Page = () => {
       console.error("Error disconnecting:", error);
     }
   };
+  const scrollToBottom = () => {
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+    }
+  };
   useEffect(() => {
     if (convoId) {
       fetchMessages();
     }
   }, [convoId]);
   useEffect(() => {
-    if (Cookies.get("common-auth") === undefined) {
+    scrollToBottom();
+  }, [messages]);
+  useEffect(() => {
+    if (localStorage.getItem("common-auth") === undefined) {
       router.push("/");
     }
     fetchConversations();
@@ -293,17 +302,12 @@ const Page = () => {
                   ) : (
                     <>
                       <div className="conversations">
-                        <img
-                          src={Clock.src}
-                          alt="Clock"
-                          className="smallIcons"
-                        />
                         <div className="personInfo">
                           <h3>{userName}</h3>
                         </div>
                       </div>
                       <div className="divider" />
-                      <div className="messagesContianer">
+                      <div className="messagesContianer" ref={messagesContainerRef}>
                         {messages
                           ?.slice()
                           .reverse()
