@@ -43,7 +43,8 @@ export const login = async (req: express.Request, res: express.Response) => {
     //   return res.status(201).json(user).end();
     // }
 
-    res.cookie('common-auth', user.authentication.sessionToken);
+    res.cookie('common-auth', user.authentication.sessionToken,{ httpOnly: true, secure: true, sameSite: 'none' });
+
 
     return res.status(200).json(user).end();
   } catch (error) {

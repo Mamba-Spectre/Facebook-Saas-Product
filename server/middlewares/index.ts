@@ -6,7 +6,9 @@ import { getUserBySessionToken } from '../db/users';
 export const isAuthenticated = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   try {
     console.log("i ma herer");
-    console.log("header", req.cookies);
+    console.log("cokkies", req.cookies);
+    console.log("headers", req.headers);
+    
     
     
     const sessionToken = req.cookies['common-auth'];
