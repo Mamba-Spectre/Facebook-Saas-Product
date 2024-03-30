@@ -9,7 +9,7 @@ export const isAuthenticated = async (req: express.Request, res: express.Respons
     console.log("header", req.cookies);
     
     
-    const sessionToken = req.cookies['COMMON-AUTH'];
+    const sessionToken = req.cookies['common-auth'];
     // const sessionToken:any = req.headers['common-auth'];
     console.log("sessionToken", sessionToken);
     

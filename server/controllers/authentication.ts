@@ -43,7 +43,7 @@ export const login = async (req: express.Request, res: express.Response) => {
     //   return res.status(201).json(user).end();
     // }
 
-    res.cookie('COMMON-AUTH', user.authentication.sessionToken);
+    res.cookie('common-auth', user.authentication.sessionToken);
 
     return res.status(200).json(user).end();
   } catch (error) {
@@ -53,7 +53,7 @@ export const login = async (req: express.Request, res: express.Response) => {
 
 export const logout = async (req: express.Request, res: express.Response) => {
   try {
-    const sessionToken = req.cookies['COMMON-AUTH'];
+    const sessionToken = req.cookies['common-auth'];
     const user:any = await getUserBySessionToken(sessionToken);
 
     if (!user) {
