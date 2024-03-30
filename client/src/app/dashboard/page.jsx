@@ -45,6 +45,9 @@ const Page = () => {
           message: message,
         },
         {
+          headers: {
+            "common-auth": `${authToken}`,
+          },
           withCredentials: true,
         }
       );
