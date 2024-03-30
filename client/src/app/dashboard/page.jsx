@@ -107,6 +107,9 @@ const Page = () => {
   const logoutWithDisconnect = async () => {
     try {
       const response = await axios.get("http://localhost:8080/auth/logout", {
+        headers: {
+          "common-auth": Cookies.get("common-auth"),
+        },
         withCredentials: true,
       });
       if (response) {
