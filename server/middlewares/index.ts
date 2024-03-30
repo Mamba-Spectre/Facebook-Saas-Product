@@ -8,10 +8,11 @@ export const isAuthenticated = async (req: express.Request, res: express.Respons
     console.log("i ma herer");
     console.log("cokkies", req.cookies);
     console.log("headers", req.headers["common-auth"]);
+    const sessionToken:any = req.headers['common-auth'];
     
     
     
-    const sessionToken = req.header['common-auth'];
+    // const sessionToken = req.header['common-auth'];
     // const sessionToken:any = req.headers['common-auth'];
     console.log("sessionToken", sessionToken);
     
