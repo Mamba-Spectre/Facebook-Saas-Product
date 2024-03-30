@@ -84,6 +84,12 @@ const Page = () => {
       {
         withCredentials: true,
       });
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/facebook/conversations`,{
+        meathod: 'GET',
+        credentials: 'include',
+      })
+      const data = res.json();
+      console.log("??????????????????",data);
       setConvo(response.data.allConversationsFromDB);
       setOwner(response?.data?.allConversationsFromDB[0]?.pageName);
       setLoading(false);
@@ -95,6 +101,8 @@ const Page = () => {
       console.error("Error fetching conversations:", error);
     }
   };
+
+
   const logut = () => {
     Cookies.remove("common-auth");
     router.push("/");
