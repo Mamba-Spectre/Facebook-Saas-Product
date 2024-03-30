@@ -78,12 +78,12 @@ const Page = () => {
   const fetchConversations = async () => {
     setLoading(true);
     try {
-      const authToken = localStorage.getItem('COMMON-AUTH');
+      const authToken = localStorage.getItem('common-auth');
       const response = await axios.get(`http://localhost:8080/facebook/conversations`, 
       
       {
         headers: {
-          "COMMON-AUTH": `${authToken}`,
+          "common-auth": `${authToken}`,
         },
         withCredentials: true,
       });
@@ -99,7 +99,7 @@ const Page = () => {
     }
   };
   const logut = () => {
-    Cookies.remove("COMMON-AUTH");
+    Cookies.remove("common-auth");
     router.push("/");
   };
   const logoutWithDisconnect = async () => {
@@ -108,7 +108,7 @@ const Page = () => {
         withCredentials: true,
       });
       if (response) {
-        Cookies.remove("COMMON-AUTH");
+        Cookies.remove("common-auth");
         router.push("/");
       }
     } catch (error) {
@@ -121,7 +121,7 @@ const Page = () => {
     }
   }, [convoId]);
   useEffect(() => {
-    if (Cookies.get("COMMON-AUTH") === undefined) {
+    if (Cookies.get("common-auth") === undefined) {
       router.push("/");
     }
     fetchConversations();

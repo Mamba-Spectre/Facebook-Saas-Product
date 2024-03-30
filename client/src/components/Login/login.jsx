@@ -16,9 +16,9 @@ const AuthForm = () => {
   const [userId,setUserId] = useState("");
   const router = useRouter();
   const handleLoginSuccess = (sessionToken) => {
-    // cookieClient.save('COMMON-AUTH', sessionToken, {path:'/'})
-    Cookies.set("COMMON-AUTH", sessionToken, {path:'/'});
-    localStorage.setItem("COMMON-AUTH", sessionToken);
+    // cookieClient.save('common-auth', sessionToken, {path:'/'})
+    Cookies.set("common-auth", sessionToken, {path:'/'});
+    localStorage.setItem("common-auth", sessionToken);
     setIsModalOpen(true);
   };
   
@@ -39,10 +39,10 @@ const AuthForm = () => {
       };
       const response = await axios.post(`http://localhost:8080/auth/login`, authData);
       if (response?.data?.facebookAuthTokens) {
-        // document.cookie = "COMMON-AUTH=" + encodeURIComponent(sessionToken) + "; path=/";
-        // cokkieClient.save('COMMON-AUTH', response?.data?.facebookAuthTokens?.sessionToken, {path:'/'})
-        Cookies.set("COMMON-AUTH", response?.data?.authentication?.sessionToken, {path:'/'});
-        localStorage.setItem("COMMON-AUTH", response?.data?.authentication?.sessionToken);
+        // document.cookie = "common-auth=" + encodeURIComponent(sessionToken) + "; path=/";
+        // cokkieClient.save('common-auth', response?.data?.facebookAuthTokens?.sessionToken, {path:'/'})
+        Cookies.set("common-auth", response?.data?.authentication?.sessionToken, {path:'/'});
+        localStorage.setItem("common-auth", response?.data?.authentication?.sessionToken);
         router.push('/dashboard');
       } else {
         setUserId(response?.data?._id);
