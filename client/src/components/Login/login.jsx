@@ -1,34 +1,28 @@
 "use client";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles.css";
 import axios from "axios";
 import Modal from "../Modal";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
-import cookieClient from 'react-cookie'
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Loader from "../Loader";
+
 const AuthForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSignUp, setIsSignUp] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [error, setError] = useState("");
-  const [userId,setUserId] = useState("");
+  const [userId, setUserId] = useState("");
   const router = useRouter();
   const handleLoginSuccess = (sessionToken) => {
-    // cookieClient.save('common-auth', sessionToken, {path:'/'})
-    Cookies.set("common-auth", sessionToken, {path:'/'});
-    if(localStorage.getItem("common-auth") === null){
+    Cookies.set("common-auth", sessionToken, { path: "/" });
       localStorage.setItem("common-auth", sessionToken);
-    }
     setIsModalOpen(true);
   };
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     debugger
-  //   }, 1000);
-  // },[])
-  
+
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
@@ -42,15 +36,23 @@ const AuthForm = () => {
       setLoading(true);
       const authData = {
         email,
-        password
+        password,
       };
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, authData);
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
+        authData
+      );
       if (response?.data?.facebookAuthTokens) {
-        // document.cookie = "common-auth=" + encodeURIComponent(sessionToken) + "; path=/";
-        // cokkieClient.save('common-auth', response?.data?.facebookAuthTokens?.sessionToken, {path:'/'})
-        Cookies.set("common-auth", response?.data?.authentication?.sessionToken, {path:'/'});
-        localStorage.setItem("common-auth", response?.data?.authentication?.sessionToken);
-        router.push('/dashboard');
+        Cookies.set(
+          "common-auth",
+          response?.data?.authentication?.sessionToken,
+          { path: "/" }
+        );
+        localStorage.setItem(
+          "common-auth",
+          response?.data?.authentication?.sessionToken
+        );
+        router.push("/dashboard");
       } else {
         setUserId(response?.data?._id);
         handleLoginSuccess(response.data.authentication.sessionToken);
@@ -58,16 +60,21 @@ const AuthForm = () => {
       console.log("response:", response.data);
     } catch (err) {
       setLoading(false);
-      setError(err?.response?.data?.message || "An error occurred");
+      toast.error(err?.response?.data?.message || "An error occurred", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     }
   };
-  
 
   return (
     <div className="root">
-      {loading ? (
-        <div className="loader" />
-      ) : (
         <form className="auth-form" onSubmit={handleSubmit}>
           <h2>Login</h2>
           <div>
@@ -88,16 +95,32 @@ const AuthForm = () => {
               onChange={handlePasswordChange}
             />
           </div>
-          {error && <p className="error">{error}</p>} {/* Render error message if error exists */}
-          <button type="submit">{isSignUp ? "Sign Up" : "Login"}</button>
+          {
+            loading? <Loader/> : <button type="submit">{isSignUp ? "Sign Up" : "Login"}</button>
+          }
         </form>
-      )}
+
       {isModalOpen && (
         <Modal
-          closeModal={() => {setIsModalOpen(false), setError("")}}
+          closeModal={() => {
+            setLoading(false),
+            setIsModalOpen(false);
+          }}
           id={userId}
         />
       )}
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </div>
   );
 };

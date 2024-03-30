@@ -10,7 +10,9 @@ import EnvelopeIcon from "../../../assets/envelope (1).png";
 import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
-import relativeTime from "dayjs/plugin/relativeTime"; // Import relativeTime plugin
+import relativeTime from "dayjs/plugin/relativeTime";
+import { toast, ToastContainer } from "react-toastify";
+import Loader from "@/components/Loader";
 
 dayjs.extend(relativeTime);
 
@@ -56,12 +58,15 @@ const Page = () => {
   const fetchMessages = async () => {
     try {
       setMessageLoading(true);
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/facebook/messages`, {
-        params: {
-          conversationId: convoId,
-        },
-        withCredentials: true,
-      });
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/facebook/messages`,
+        {
+          params: {
+            conversationId: convoId,
+          },
+          withCredentials: true,
+        }
+      );
       const filteredMessages = response.data.messages.filter(
         (message) => message.from.name !== owner
       );
@@ -78,15 +83,17 @@ const Page = () => {
   const fetchConversations = async () => {
     setLoading(true);
     try {
-      const authToken = localStorage.getItem('common-auth');
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/facebook/conversations`, 
-      
-      {
+      const authToken = localStorage.getItem("common-auth");
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/facebook/conversations`,
+
+        {
           headers: {
-            'common-auth': `${authToken}`,
+            "common-auth": `${authToken}`,
           },
-        withCredentials: true,
-      });
+          withCredentials: true,
+        }
+      );
       setConvo(response.data.allConversationsFromDB);
       setOwner(response?.data?.allConversationsFromDB[0]?.pageName);
       setLoading(false);
@@ -99,26 +106,41 @@ const Page = () => {
     }
   };
 
-
   const logut = () => {
+    localStorage.removeItem("common-auth");
     Cookies.remove("common-auth");
     router.push("/");
   };
   const logoutWithDisconnect = async () => {
     try {
-      const authToken = localStorage.getItem('common-auth');
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
-        headers: {
-          "common-auth": authToken,
-        },
-        withCredentials: true,
-      });
+      setLoading(true);
+      const authToken = localStorage.getItem("common-auth");
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/logout`,
+        {
+          headers: {
+            "common-auth": authToken,
+          },
+          withCredentials: true,
+        }
+      );
       if (response) {
         localStorage.removeItem("common-auth");
         Cookies.remove("common-auth");
         router.push("/");
       }
     } catch (error) {
+      setLoading(false);
+      toast.error("Error disconnecting", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
       console.error("Error disconnecting:", error);
     }
   };
@@ -137,7 +159,7 @@ const Page = () => {
     <>
       <div className="root">
         {loading ? (
-          <div className="loader" />
+          <Loader />
         ) : (
           <div style={{ display: "flex", width: "100vw", height: "100vh" }}>
             <div className="iconPanel">
@@ -298,6 +320,18 @@ const Page = () => {
             </div>
           </div>
         )}
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
       </div>
     </>
   );

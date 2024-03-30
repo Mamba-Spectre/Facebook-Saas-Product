@@ -5,12 +5,12 @@ import AuthForm from "@/components/Login/login";
 import { useEffect } from "react";
 
 export default function Home() {
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     debugger;
-  //   }, 1000);
-  //   return () => clearInterval(interval);
-  // }, []);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      debugger;
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
   return (
 <div>
 <AuthForm />
