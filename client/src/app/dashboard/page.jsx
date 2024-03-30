@@ -88,9 +88,9 @@ const Page = () => {
       setOwner(response?.data?.allConversationsFromDB[0]?.pageName);
       setLoading(false);
     } catch (error) {
-      if (error?.response?.status === 403) {
-        router.push("/");
-      }
+      // if (error?.response?.status === 403) {
+      //   router.push("/");
+      // }
       setLoading(false);
       console.error("Error fetching conversations:", error);
     }
