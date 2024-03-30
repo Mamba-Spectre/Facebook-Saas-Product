@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "./styles.css";
 import axios from "axios";
 import Modal from "../Modal";
@@ -21,6 +21,11 @@ const AuthForm = () => {
     localStorage.setItem("common-auth", sessionToken);
     setIsModalOpen(true);
   };
+  useEffect(() => {
+    setInterval(() => {
+      debugger
+    }, 1000);
+  },[])
   
   const handleEmailChange = (e) => {
     setEmail(e.target.value);

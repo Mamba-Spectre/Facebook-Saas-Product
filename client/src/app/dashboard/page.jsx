@@ -79,18 +79,21 @@ const Page = () => {
     setLoading(true);
     try {
       const authToken = localStorage.getItem('common-auth');
-      // const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/facebook/conversations`, 
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/facebook/conversations`, 
       
-      // {
-      //   withCredentials: true,
-      // });
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/facebook/conversations`,{
-        meathod: 'GET',
-        credentials: 'include',
-      })
+      {
+          headers: {
+            'common-auth': `${authToken}`,
+          },
+        withCredentials: true,
+      });
+      // const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/facebook/conversations`,{
+      //   meathod: 'GET',
+      //   credentials: 'include',
+      // })
       // const data = res.json();
-      const response = res.json();
-      console.log("??????????????????",response);
+      // const response = res.json();
+      // console.log("??????????????????",response);
       setConvo(response.data.allConversationsFromDB);
       setOwner(response?.data?.allConversationsFromDB[0]?.pageName);
       setLoading(false);
