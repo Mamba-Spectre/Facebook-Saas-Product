@@ -79,7 +79,7 @@ const Page = () => {
     setLoading(true);
     try {
       const authToken = localStorage.getItem('COMMON-AUTH');
-      const response = await axios.get(`http://localhost:8080/facebook/conversations`, 
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/facebook/conversations`, 
       
       {
         headers: {
