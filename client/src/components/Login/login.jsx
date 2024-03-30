@@ -37,7 +37,7 @@ const AuthForm = () => {
         email,
         password
       };
-      const response = await axios.post(`http://localhost:8080/auth/login`, authData);
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, authData);
       if (response?.data?.facebookAuthTokens) {
         // document.cookie = "common-auth=" + encodeURIComponent(sessionToken) + "; path=/";
         // cokkieClient.save('common-auth', response?.data?.facebookAuthTokens?.sessionToken, {path:'/'})
