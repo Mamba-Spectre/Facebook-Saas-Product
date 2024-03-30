@@ -30,7 +30,6 @@ const Page = () => {
   const [messageLoading, setMessageLoading] = useState(false);
   const [selectedConvoIndex, setSelectedConvoIndex] = useState(null);
   const [showOptions, setShowOptions] = useState(false);
-  const authToken = localStorage.getItem("common-auth");
 
   const handleUserClick = () => {
     setShowOptions(!showOptions);
@@ -38,6 +37,7 @@ const Page = () => {
 
   const sendMessage = async (message) => {
     try {
+      const authToken = localStorage.getItem("common-auth");
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/facebook/reply`,
         {
@@ -71,6 +71,7 @@ const Page = () => {
 
   const fetchMessages = async () => {
     try {
+      const authToken = localStorage.getItem("common-auth");
       setMessageLoading(true);
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/facebook/messages`,
@@ -109,6 +110,7 @@ const Page = () => {
 
   const fetchConversations = async () => {
     setLoading(true);
+    const authToken = localStorage.getItem("common-auth");
     try {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/facebook/conversations`,
