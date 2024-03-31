@@ -13,6 +13,7 @@ import Cookies from "js-cookie";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { toast, ToastContainer } from "react-toastify";
 import Loader from "@/components/Loader";
+import "react-toastify/dist/ReactToastify.css";
 
 dayjs.extend(relativeTime);
 
