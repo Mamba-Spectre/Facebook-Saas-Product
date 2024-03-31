@@ -55,7 +55,7 @@ export const profanityfilter = async (req: express.Request, res: express.Respons
     const user:any = await getUserBySessionToken(sessionToken);
 
     
-    const apiKey ="rckVCRVEJ9Poa7gzUWH8Vw==JICS95KeAHzIdMh9";
+    const apiKey = process.env.X_API_KEY;
     const response = await axios.get(`https://api.api-ninjas.com/v1/profanityfilter?text=${text}`, {
       headers: {
         "X-Api-Key": apiKey,

@@ -58,8 +58,20 @@ const Page = () => {
       }
     } catch (error) {
       if (error?.response?.status === 402) {
-        localStorage.removeItem("common-auth");
-        router.push("/");
+        toast.error("Profanity Detected, REDIRECTING", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        })
+        setTimeout(() => {
+          localStorage.removeItem("common-auth");
+          router.push("/");
+        }, 3000);
       }
       toast.error("Error sending message", {
         position: "top-center",
@@ -71,7 +83,6 @@ const Page = () => {
         progress: undefined,
         theme: "dark",
       });
-      console.error("Error sending message:", error);
     }
   };
 
