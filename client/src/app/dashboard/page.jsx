@@ -384,6 +384,8 @@ const Page = () => {
                           }
                         }}
                       />
+                      <div className="warningText">Messages are monitored in real-time. No foul language is allowed.</div>
+
                     </>
                   )}
                 </>
