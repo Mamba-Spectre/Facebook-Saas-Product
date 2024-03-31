@@ -207,6 +207,10 @@ const Page = () => {
       <div className="root">
         {loading ? (
           <Loader />
+          ) : convo && convo.length === 0 ? (
+          <div className="noConversations">
+            No Conversations
+          </div>
         ) : (
           <div style={{ display: "flex", width: "100vw", height: "100vh" }}>
             <div className="iconPanel">
