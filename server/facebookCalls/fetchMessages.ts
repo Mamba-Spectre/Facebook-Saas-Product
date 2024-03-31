@@ -87,7 +87,7 @@ export const fullConversation = async (req: any, res: any) => {
   try {
     const { conversationId } = req.query;
     const response = await axios.get(
-      `https://graph.facebook.com/v12.0/${conversationId}/messages`,
+      `https://graph.facebook.com/v19.0/${conversationId}/messages`,
       {
         params: {
           access_token: accessToken,
@@ -95,6 +95,8 @@ export const fullConversation = async (req: any, res: any) => {
         },
       }
     );
+    console.log("here");
+    
 
     const newMessages = response.data.data;
 
