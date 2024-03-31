@@ -114,7 +114,7 @@ const Page = () => {
     const authToken = localStorage.getItem("common-auth");
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/facebook/conversations`,
+        `http://localhost:8080/facebook/conversations`,
 
         {
           headers: {
@@ -130,8 +130,17 @@ const Page = () => {
       if (error?.response?.status === 403) {
         router.push("/");
       }
+      toast.info("Error fetching conversations, Try Disconnecting Page and Login again", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
       setLoading(false);
-      console.error("Error fetching conversations:", error);
     }
   };
 
