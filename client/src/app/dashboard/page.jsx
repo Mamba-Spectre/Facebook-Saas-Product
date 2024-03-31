@@ -57,6 +57,10 @@ const Page = () => {
         fetchMessages();
       }
     } catch (error) {
+      if (error?.response?.status === 402) {
+        localStorage.removeItem("common-auth");
+        router.push("/");
+      }
       toast.error("Error sending message", {
         position: "top-center",
         autoClose: 5000,

@@ -1,7 +1,8 @@
 import express from 'express';
 import { merge, get } from 'lodash';
+import axios from 'axios';
 
-import { getUserBySessionToken } from '../db/users'; 
+import { UserModel, getUserBySessionToken } from '../db/users'; 
 
 export const isAuthenticated = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   try {
@@ -43,5 +44,32 @@ export const isOwner = async (req: express.Request, res: express.Response, next:
   } catch (error) {
     console.log(error);
     return res.status(400).json({ message: 'Error checking ownership' });
+  }
+}
+
+export const profanityfilter = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  try{
+    const text = req.body.message;
+    // const { id } = req.params;
+    const sessionToken:any = req.headers['common-auth'];
+    const user:any = await getUserBySessionToken(sessionToken);
+
+    
+    const apiKey ="rckVCRVEJ9Poa7gzUWH8Vw==JICS95KeAHzIdMh9";
+    const response = await axios.get(`https://api.api-ninjas.com/v1/profanityfilter?text=${text}`, {
+      headers: {
+        "X-Api-Key": apiKey,
+        "Content-Type": "application/json",
+      },
+    });
+    if(response.data.has_profanity){
+      user.isBlackListed = true;
+      await user.save();
+      return res.status(402).json({ message: 'Profanity detected' });
+    }
+    next();
+  }catch(error){
+    console.log(error);
+    return res.status(400).json({ message: 'Error checking profanity' });
   }
 }

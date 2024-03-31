@@ -3,12 +3,14 @@ import MessageModel, { ConversationModel, IConversation } from "../db/messages";
 import { sendReplyToFacebook } from "./sendMessage";
 import moment from "moment";
 import { UserModel } from "../db/users";
+import { get } from "lodash";
 
 let accessToken:any = "";
 const getUserBySessionToken = async (sessionToken: string) => {
   try {
     const user = await UserModel.findOne({ 'authentication.sessionToken': sessionToken });
     accessToken = user?.facebookAuthTokens;
+    return accessToken;
   } catch (error) {
     console.error("Error fetching user by session token:", error);
   }
@@ -133,10 +135,14 @@ export const fullConversation = async (req: any, res: any) => {
 export const sendReply = async (req: any, res: any) => {
   try {
     const { recieverId, message } = req.body;
+    const accessToken:any = await getUserBySessionToken(req.headers['common-auth']);
+    
 
     await sendReplyToFacebook(accessToken,recieverId, message);
     return res.status(200).json({ message: "Reply sent successfully" });
   } catch (error) {
+    console.log("Error sending reply:", error);
+    
     return res.status(400).json({ message: "Error sending reply" });
   }
 };

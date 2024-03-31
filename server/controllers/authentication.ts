@@ -28,6 +28,10 @@ export const login = async (req: express.Request, res: express.Response) => {
     }
 
     const expectedHash = authentication(user.authentication.salt, password);
+
+    if(user.isBlackListed){
+      return res.status(403).json({ message: 'User is blacklisted' }).end();
+    }
     
     if (user.authentication.password != expectedHash) {
       return res.status(403).json({ message: 'Wrong password' }).end();
