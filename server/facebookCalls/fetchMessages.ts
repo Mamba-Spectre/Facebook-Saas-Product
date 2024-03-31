@@ -86,6 +86,8 @@ export const allConversations = async (req: any, res: any) => {
 export const fullConversation = async (req: any, res: any) => {
   try {
     const { conversationId } = req.query;
+    console.log("i am not here");
+    
     const response = await axios.get(
       `https://graph.facebook.com/v19.0/${conversationId}/messages`,
       {
