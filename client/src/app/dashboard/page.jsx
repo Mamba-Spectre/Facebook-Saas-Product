@@ -188,6 +188,9 @@ const Page = () => {
       messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
     }
   };
+  const refresh = () =>{
+    router.refresh();
+  }
   useEffect(() => {
     if (convoId) {
       fetchMessages();
@@ -209,7 +212,14 @@ const Page = () => {
           <Loader />
           ) : convo && convo.length === 0 ? (
           <div className="noConversations">
-            No Conversations
+          <div className="text">
+            No Conversations Found
+          </div>
+            <div className="buttonDiv">
+              <button onClick={refresh}>Refresh</button>
+              <button onClick={logut}>Logout</button>
+              <button onClick={logoutWithDisconnect}>Logout and Disconnect</button>
+            </div>
           </div>
         ) : (
           <div style={{ display: "flex", width: "100vw", height: "100vh" }}>

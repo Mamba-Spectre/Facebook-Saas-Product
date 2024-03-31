@@ -229,3 +229,31 @@ input::placeholder {
   scroll-behavior: smooth;
   transition: scroll-behavior 0.5s ease-in-out;
 }
+.buttonDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  gap: 10px;
+}
+.buttonDiv button {
+  width: 200px;
+  padding: 12px;
+  background-color: #007bff;
+  background-image: linear-gradient(to bottom, #007bff, #0056b3);
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.buttonDiv button:hover {
+  background-color: #0056b3;
+}
+.text{
+  text-align: center;
+  width: 100%;
+  font-size: 34px;
+}
