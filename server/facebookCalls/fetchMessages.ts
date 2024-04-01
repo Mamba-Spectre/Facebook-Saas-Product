@@ -64,6 +64,7 @@ export const allConversations = async (req: any, res: any) => {
       } else {
         await ConversationModel.create({
           pageName: about.data.name,
+          isRead: true,
           conversationId: conversation.id,
           senderName: conversation.senders.data[0].name,
           snippet: conversation.snippet,
