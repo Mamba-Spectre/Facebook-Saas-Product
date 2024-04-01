@@ -112,6 +112,7 @@ export const fullConversation = async (req: any, res: any) => {
       });
       return res.status(200).json({ messages: conversation.messages });
     }
+    conversation.isRead = true;
     const existingMessageIds = conversation.messages.map(
       (message:any) => message.id
     );

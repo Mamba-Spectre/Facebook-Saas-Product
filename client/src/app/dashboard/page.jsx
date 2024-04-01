@@ -300,12 +300,12 @@ const Page = () => {
                           setUserName(item?.senderName);
                       }}
                     >
-                    <div className="dot" style={{ backgroundColor: item.isRead ? '' : 'red' }}></div>
                       <div className="nameTime">
                         <span className="userName">
                           {item?.senderName?.split(" ")[0]}{" "}
                           {item?.senderName?.split(" ")[1].charAt(0)}.
                         </span>
+                        {item?.isRead === "false" && <div className="dot"></div>}
                         <span className="nonHighlightedText">
                           {dayjs().to(dayjs(item?.time)).replace(" ago", "")}
                         </span>

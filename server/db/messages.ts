@@ -55,7 +55,7 @@ interface IConversation extends Document {
   }
   const ConversationSchema: Schema = new Schema({
     conversationId: { type: String, required: true, unique: true },
-    isRead: { type: String, required: true, default: false},
+    isRead: { type: String, required: true, default: true},
     senderName: { type: String, required: false },
     snippet: { type: String, required: true },
     time: { type: Date, required: true },
