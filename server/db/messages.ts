@@ -46,25 +46,22 @@ const MessageModel = mongoose.model<IMessage>('Message', MessageSchema);
 export default MessageModel;
 
 interface IConversation extends Document {
+  isRead:string;
   pageName: string;
     conversationId: string;
     senderName: string;
     snippet: string;
     time: Date;
-    // You can add more fields here if needed
   }
-  
-  // Define schema for Conversation
   const ConversationSchema: Schema = new Schema({
     conversationId: { type: String, required: true, unique: true },
+    isRead: { type: String, required: true, default: false},
     senderName: { type: String, required: false },
     snippet: { type: String, required: true },
     time: { type: Date, required: true },
     pageName: { type: String, required: true },
-    // You can define more fields here if needed
   });
   
-  // Define Conversation model
   const ConversationModel = mongoose.model<IConversation>('Conversation', ConversationSchema);
   
   export { ConversationModel, IConversation };

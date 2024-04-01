@@ -54,6 +54,7 @@ export const allConversations = async (req: any, res: any) => {
             { conversationId: conversation.id },
             {
               $set: {
+                isRead: false,
                 snippet: conversation.snippet,
                 time: conversation.updated_time,
               },
@@ -88,7 +89,6 @@ export const allConversations = async (req: any, res: any) => {
 export const fullConversation = async (req: any, res: any) => {
   try {
     const { conversationId } = req.query;
-    console.log("i am not here");
     
     const response = await axios.get(
       `https://graph.facebook.com/v19.0/${conversationId}/messages`,
@@ -99,12 +99,10 @@ export const fullConversation = async (req: any, res: any) => {
         },
       }
     );
-    console.log("here");
-    
 
     const newMessages = response.data.data;
 
-    let conversation = await MessageModel.findOne({ conversationId });
+    let conversation:any = await MessageModel.findOne({ conversationId });
 
     if (!conversation) {
       conversation = await MessageModel.create({
@@ -122,6 +120,7 @@ export const fullConversation = async (req: any, res: any) => {
 
     if (areMessagesDifferent) {
       conversation.messages = newMessages;
+      conversation.isRead = true;
       await conversation.save();
     }
 

@@ -300,6 +300,7 @@ const Page = () => {
                           setUserName(item?.senderName);
                       }}
                     >
+                    <div className="dot" style={{ backgroundColor: item.isRead ? '' : 'red' }}></div>
                       <div className="nameTime">
                         <span className="userName">
                           {item?.senderName?.split(" ")[0]}{" "}
