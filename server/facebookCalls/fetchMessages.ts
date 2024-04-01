@@ -113,7 +113,7 @@ export const fullConversation = async (req: any, res: any) => {
       return res.status(200).json({ messages: conversation.messages });
     }
     const existingMessageIds = conversation.messages.map(
-      (message) => message.id
+      (message:any) => message.id
     );
     const newMessageIds = newMessages.map((message: { id: any }) => message.id);
     const areMessagesDifferent =
